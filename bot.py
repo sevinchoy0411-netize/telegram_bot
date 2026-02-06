@@ -1,40 +1,46 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
+from telegram.ext import ApplicationBuilder , CallbackQueryHandler , CommandHandler , ContextTypes
 
 TOKEN = ""
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+savol = "Telegram bot yaratishning nechta turi bor?"
 
-    keyboard = [
-        [
-            InlineKeyboardButton("👍 Ha",callback_data="ha"),
-            InlineKeyboardButton("👎 Yo'q",callback_data="yoq")
-        ]
-    ]
+variant = [
+    (1,"A"),
+    (2,"B"),
+    (3,"C"),
+    (4,"D")
+]
 
-    markup = InlineKeyboardMarkup(keyboard)
+javob = "B"
 
+async def start(update: Update,context: ContextTypes.DEFAULT_TYPE):
+    royhat = []
+
+    for matn , qiymat in variant:
+        royhat.append(
+            [InlineKeyboardButton(matn , callback_data = qiymat)]
+        )
+        reply_markup = InlineKeyboardMarkup(royhat)
     await update.message.reply_text(
-        "Tanlang: ",
-        reply_markup=markup
+            savol,
+            reply_markup=reply_markup
     )
 
-
-async def button(update: Update, context:ContextTypes.DEFAULT_TYPE):
-
+async def button(update: Update,context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-
-    if query.data == "ha":
-        await query.edit_message_text("Siz HAni bosdingiz 👍")
-
+    if query.data == javob:
+        await query.edit_message_text("Siz to'g'ri javobni topdingiz!")
     else:
-        await query.edit_message_text("Siz YO'Qni bosdingiz 👎")
+        await query.edit_message_text("Siz to'g'ri javobni topa olmadingiz")
 
+def main():
+    app = ApplicationBuilder().token(TOKEN).build()
+    app.add_handler(CommandHandler("start",start))
+    app.add_handler(CallbackQueryHandler(button))
+    print("bot ishga tushdi...")
+    app.run_polling()
 
-app = ApplicationBuilder().token(TOKEN).build()
-
-app.add_handler(CommandHandler("start",start))
-app.add_handler(CallbackQueryHandler(button))
-
-app.run_polling()
+if __name__ == "__main__":
+    main()
