@@ -1,46 +1,20 @@
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import ApplicationBuilder , CallbackQueryHandler , CommandHandler , ContextTypes
+import asyncio
+from aiogram import Bot , Dispatcher,types
+from aiogram.filters import Command
 
 TOKEN = ""
+bot = Bot(token = TOKEN)
+db = Dispatcher()
 
-savol = "Telegram bot yaratishning nechta turi bor?"
+@db.message(Command("start"))
+async def start_handler(message: types.Message):
+    await message.answer("Botga hush kelibsiz!")
 
-variant = [
-    (1,"A"),
-    (2,"B"),
-    (3,"C"),
-    (4,"D")
-]
+@db.message(Command("help"))
+async def help_handler(message: types.Message):
+    await message.answer("Nima yordam kerak?")
 
-javob = "B"
+async def main():
+    await db.start_polling(bot)
 
-async def start(update: Update,context: ContextTypes.DEFAULT_TYPE):
-    royhat = []
-
-    for matn , qiymat in variant:
-        royhat.append(
-            [InlineKeyboardButton(matn , callback_data = qiymat)]
-        )
-        reply_markup = InlineKeyboardMarkup(royhat)
-    await update.message.reply_text(
-            savol,
-            reply_markup=reply_markup
-    )
-
-async def button(update: Update,context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    await query.answer()
-    if query.data == javob:
-        await query.edit_message_text("Siz to'g'ri javobni topdingiz!")
-    else:
-        await query.edit_message_text("Siz to'g'ri javobni topa olmadingiz")
-
-def main():
-    app = ApplicationBuilder().token(TOKEN).build()
-    app.add_handler(CommandHandler("start",start))
-    app.add_handler(CallbackQueryHandler(button))
-    print("bot ishga tushdi...")
-    app.run_polling()
-
-if __name__ == "__main__":
-    main()
+asyncio.run(main())
