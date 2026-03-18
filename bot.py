@@ -3,7 +3,7 @@ from aiogram import Bot , Dispatcher,types
 from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardMarkup , KeyboardButton , InlineKeyboardButton , InlineKeyboardMarkup
 
-TOKEN = "8574401368:AAFIimD9AzRgEZGwWTjVXz9ELPB7jckn4aE"
+TOKEN = ""
 bot = Bot(token = TOKEN)
 db = Dispatcher()
 
