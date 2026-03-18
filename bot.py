@@ -14,7 +14,7 @@ kb = ReplyKeyboardMarkup(
 )
 
 kb2 = ReplyKeyboardMarkup(
-    keyboard=[[KeyboardButton(text="Bosh menyu🏠"),KeyboardButton(text="Dasturlash"),KeyboardButton(text="Kompyuter savodxonligi"),KeyboardButton(text="Ingliz tili")]],
+    keyboard=[[KeyboardButton(text="Bosh menyu🏠"),KeyboardButton(text="Dasturlash"),KeyboardButton(text="Kompyuter savodxonligi"),KeyboardButton(text="Ingliz tili"),KeyboardButton(text="SMM")]],
     resize_keyboard=True
 )
 
@@ -38,6 +38,8 @@ async def msg(message: types.Message):
         await message.answer("📌 Kurs davomiyligi: 1–3 oy\n💰 Narx: 400 000so‘m\n💡 Nimalarni o‘rganasiz:\n- Windows va MS Office (Word, Excel, PowerPoint)\n- Internet va elektron pochta ishlatish\n- Fayllarni boshqarish va xavfsizlik asoslari\n- Oddiy grafik va prezentatsiyalar tayyorlash",reply_markup=murojat)
     elif message.text == "Ingliz tili":
         await message.answer("📌 Kurs davomiyligi: 1yil oy\n💰 Narxi: 500 000so‘m\n💡 Nimalarni o‘rganasiz:\n- Speaking, Listening, Reading va Writing ko‘nikmalari\n- Grammatikani amaliy mashqlar orqali o‘rganish\n- So‘z boyligini oshirish\n- Testlar va real muloqot mashqlari",reply_markup=murojat)
+    elif message.text == "SMM":
+        await message.answer("📱 SMM kursiga qabul boshlandi!\n📌 Kurs davomiyligi: 1–3 oy\n💰 Narx: 400 000 so‘m\n💡 Kurs davomida siz o‘rganasiz:\n✔️ Instagram va Facebook sahifalarni yuritish\n✔️ Target reklama sozlash\n✔️ Kontent yaratish va post rejalash\n✔️ Story va Reels tayyorlash\n✔️ Mijoz topish va sahifani rivojlantirish",reply_markup=murojat)
             
 @db.message(Command("help"))
 async def help_handler(message: types.Message):
